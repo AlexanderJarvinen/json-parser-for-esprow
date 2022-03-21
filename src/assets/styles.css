@@ -1,4 +1,27 @@
 
 body {
     background-color: black;
+    color: #b8b8b8;
+    height: 100%;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
 }
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    padding-right: 5px;
+    text-align: left;
+}
+
+h3_title {
+    width: 50px;
+}
+
+MuiInputBase-input{
+    background-color: white;
+}
+

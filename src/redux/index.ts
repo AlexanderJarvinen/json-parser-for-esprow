@@ -1,5 +1,15 @@
-import {  createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { entitesReducer } from "./reducers";
-import { entityInitialState } from "./initialState";
+import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export const store = createStore(entitesReducer, entityInitialState);
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+
+
+const combine = combineReducers(
+    {
+        entitesReducer: entitesReducer,
+    }
+);
+
+export const store = createStore(combine, composedEnhancer);

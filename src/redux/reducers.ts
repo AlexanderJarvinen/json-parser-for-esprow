@@ -1,4 +1,4 @@
-import { AnyAction, combineReducers, Reducer } from 'redux';
+import { AnyAction, Reducer } from 'redux';
 
 import {
   SetEntitesAction,
@@ -9,7 +9,6 @@ import {
 } from './initialState';
 import {
     Entities,
-    Entity
 } from './types';
 
 export const entitesReducer: Reducer<Entities, AnyAction | SetEntitesAction> = (

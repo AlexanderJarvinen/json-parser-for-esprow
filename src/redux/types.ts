@@ -12,3 +12,7 @@ export type Entity = {
     about: string;
     registered: string;
 }
+
+export type State = {
+    entitesReducer: Entities;
+};

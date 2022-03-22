@@ -11,8 +11,10 @@ export type Entity = {
     address: string;
     about: string;
     registered: string;
+    disabled: boolean;
 }
 
 export type State = {
     entitesReducer: Entities;
+    entitesLengthReducer: number;
 };

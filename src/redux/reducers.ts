@@ -2,10 +2,14 @@ import { AnyAction, Reducer } from 'redux';
 
 import {
   SetEntitesAction,
-    SetEntities
+  SetEntities,
+  SetEntitesLengthAction,
+  SetEntitiesLength
+
 } from './actions';
 import {
-    entityInitialState
+    entityInitialState,
+    entityLength
 } from './initialState';
 import {
     Entities,
@@ -21,6 +25,15 @@ export const entitesReducer: Reducer<Entities, AnyAction | SetEntitesAction> = (
 
     return store;
 };
+
+export const entitesLengthReducer: Reducer<number, AnyAction |  SetEntitesLengthAction> = (store = entityLength, action)  => {
+    if (action.type === SetEntitiesLength) {
+        return action.payload;
+    }
+
+    return store;
+};
+
 
 
 

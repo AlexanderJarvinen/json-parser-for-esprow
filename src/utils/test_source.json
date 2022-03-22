@@ -1,0 +1,79 @@
+[
+  {
+    "id": "6238cb386ac1fdf624d24b16",
+    "isActive": false,
+    "picture": "http://placehold.it/32x32",
+    "age": 34,
+    "name": "Oneal Acevedo",
+    "email": "onealacevedo@dogtown.com",
+    "address": "807 Bergen Place, Marbury, Puerto Rico, 7082",
+    "about": "Proident reprehenderit Lorem officia ullamco et est. Culpa non ex ea Lorem ad consequat commodo. In ex ex ea minim eiusmod anim amet magna. Quis et culpa magna aliquip. Id ipsum ut magna aute. Ex in nisi adipisicing in laboris do laborum. Et excepteur elit minim laboris incididunt tempor dolore irure exercitation culpa voluptate ad.\r\n",
+    "registered": "2016-03-23T09:46:25 -03:00"
+  },
+  {
+    "id": "6238cb380f94161b1c3b950d",
+    "isActive": false,
+    "picture": "http://placehold.it/32x32",
+    "age": 36,
+    "name": "Gilbert Stevenson",
+    "email": "gilbertstevenson@dogtown.com",
+    "address": "211 Withers Street, Thermal, Vermont, 4928",
+    "about": "Eu anim quis nulla anim ad excepteur deserunt veniam ex ipsum nulla veniam consectetur. Minim culpa nostrud eiusmod non adipisicing eiusmod ipsum veniam consequat non reprehenderit. Deserunt labore commodo nulla reprehenderit sint incididunt. Qui eiusmod id cillum qui qui laboris quis et.\r\n",
+    "registered": "2020-01-02T06:13:43 -03:00"
+  },
+  {
+    "id": "6238cb385e001d22d8b84946",
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "age": 34,
+    "name": "Maynard Gilmore",
+    "email": "maynardgilmore@dogtown.com",
+    "address": "195 Ash Street, Mathews, Illinois, 2659",
+    "about": "Commodo magna labore proident sit tempor excepteur. Ad consectetur proident consectetur laboris aliqua eiusmod. Id officia fugiat laboris eiusmod aliquip nulla ipsum aliqua. Proident pariatur dolor eiusmod ipsum consequat dolore excepteur laborum ut ut excepteur velit. Aliquip fugiat esse cillum officia dolor mollit labore velit duis aliquip magna. Ut exercitation est ut nisi minim officia in Lorem proident ea exercitation.\r\n",
+    "registered": "2021-06-10T07:55:06 -03:00"
+  },
+  {
+    "id": "6238cb386dfd2d2f589d5d36",
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "age": 34,
+    "name": "Conley Dale",
+    "email": "conleydale@dogtown.com",
+    "address": "246 Throop Avenue, Helen, Federated States Of Micronesia, 6603",
+    "about": "Adipisicing est labore amet sunt nulla ea voluptate. Quis eiusmod magna anim aliqua velit ut mollit consectetur cillum minim deserunt reprehenderit. Labore aliqua pariatur dolor sunt esse ad exercitation et ea voluptate. Id qui magna et id nisi commodo velit esse fugiat do Lorem minim.\r\n",
+    "registered": "2020-03-30T03:36:09 -03:00"
+  },
+  {
+    "id": "6238cb385c3fda60a137f141",
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "age": 36,
+    "name": "Mays Roman",
+    "email": "maysroman@dogtown.com",
+    "address": "929 Hewes Street, Nadine, Missouri, 8465",
+    "about": "Ut ut et eiusmod qui laborum occaecat pariatur sunt excepteur occaecat sunt. Velit nisi exercitation et qui aliqua qui cillum ad. Consequat excepteur ullamco eu eiusmod culpa. Ex esse qui do reprehenderit ad consectetur laboris irure ea nulla. Laborum aliquip ad enim irure ex irure duis deserunt laborum.\r\n",
+    "registered": "2020-12-17T10:43:01 -03:00"
+  },
+  {
+    "id": "6238cb384530cc5776dddaf4",
+    "isActive": true,
+    "picture": "http://placehold.it/32x32",
+    "age": 38,
+    "name": "Randi Williamson",
+    "email": "randiwilliamson@dogtown.com",
+    "address": "332 Stuyvesant Avenue, Cowiche, Arizona, 3959",
+    "about": "Tempor aliquip proident est veniam tempor. Irure id dolore officia cillum irure. Aute culpa cillum magna consequat reprehenderit irure enim enim veniam amet cupidatat ut consequat culpa.\r\n",
+    "registered": "2020-06-26T04:55:46 -03:00"
+  },
+  {
+    "id": "6238cb38748bb99021bc3e39",
+    "isActive": false,
+    "picture": "http://placehold.it/32x32",
+    "age": 38,
+    "name": "Nicole Jordan",
+    "email": "nicolejordan@dogtown.com",
+    "address": "506 Prescott Place, Delwood, New Mexico, 9426",
+    "about": "Laboris velit amet consequat consectetur aliqua nulla veniam occaecat do voluptate aliqua eu excepteur. Sit laborum ex commodo labore consequat ex tempor in excepteur reprehenderit est irure nisi elit. Eiusmod amet reprehenderit est cupidatat mollit duis sint magna sint mollit irure duis. Voluptate nostrud est et do incididunt dolore enim duis laboris cillum excepteur do nulla. Laborum tempor culpa nulla proident eu sint nostrud velit. Do qui mollit adipisicing commodo labore. Excepteur non sint esse ullamco irure fugiat culpa officia duis cupidatat culpa nisi.\r\n",
+    "registered": "2020-10-22T06:30:38 -03:00"
+  }
+]

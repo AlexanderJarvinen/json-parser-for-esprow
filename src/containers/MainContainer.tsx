@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEntities, loadEntitiesLength } from "../redux/actions";
 import { getEntitesData, getEntitesLength } from "../redux/selectors";
-import  {  Stack, Container, Paper, Input, Typography, TextField, Box, FormLabel  }  from "@mui/material";
+import  {  Stack, Container, Paper, Input, Typography, TextField, Box  }  from "@mui/material";
 import { Entities } from '../redux/types';
 import { styled } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
@@ -134,7 +134,7 @@ export const MainContainer: React.FC = () => {
                 setEmailInputValue(item.email);
                 setAddressInputValue(item.address);
                 setAboutInputValue(item.about);
-                setDateRegisteredInputValue(new Date(item.registered.split(" ")[0]));
+                setDateRegisteredInputValue(new Date(item.registered?item.registered.split("T")[0]:""));
             }
         })
     },[entitesState])
@@ -145,11 +145,6 @@ export const MainContainer: React.FC = () => {
     },[elem])
 
 
-    useEffect(() => {
-        console.log(Intl.DateTimeFormat("ru").format(dateRegisteredInputValue) );
-    },[dateRegisteredInputValue])
-
-
     const onScroll = (event: React.UIEvent<HTMLDivElement>) => {
         const scrollContainer: React.RefObject<any> = scroller;
         let realPosition = event.currentTarget.scrollTop;
@@ -157,8 +152,6 @@ export const MainContainer: React.FC = () => {
         setSavedPosition(realPosition);
 
         setPrevElem(elem);
-
-        console.log(realPosition);
 
         if(savedPosition > realPosition  && realPosition ===0 && elem > 0) {
 
@@ -181,10 +174,10 @@ export const MainContainer: React.FC = () => {
 
         }
 
-        if(realPosition > 670 && elem !== entitesLength) {
+        if(realPosition > 675 && elem !== entitesLength) {
             setElem(elem + 1);
             scrollContainer.current.scrollTo({
-                top: 660,
+                top: 650,
                 behavior: 'smooth'
             });
             setSavedPosition(0);
@@ -241,14 +234,12 @@ export const MainContainer: React.FC = () => {
                                             Active :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1">
-                                            {!item.disabled? activeRadioValue? String(activeRadioValue): "" : String(item.isActive)}
+                                            {!item.disabled? activeRadioValue: String(item.isActive)}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
                                         <RadioGroup
                                             row
-                                            // aria-labelledby="demo-controlled-radio-buttons-group"
-                                            // name="row-radio-buttons-group"
                                             sx={{ height: '20px'}}
                                             value={activeRadioValue}
                                             onChange={handleActiveRadioChange}
@@ -350,8 +341,8 @@ export const MainContainer: React.FC = () => {
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
                                         {
                                             !item.disabled?
-                                            Intl.DateTimeFormat("ru").format(dateRegisteredInputValue) :
-                                            Intl.DateTimeFormat("en").format(new Date(item.registered.split(" ")[0]))
+                                            Intl.DateTimeFormat("en").format(dateRegisteredInputValue) :
+                                            Intl.DateTimeFormat("en").format(new Date(item.registered?item.registered.split("T")[0]:""))
                                         }
                                         </StyledRowHeadlineValue>
                                     </DataRow>

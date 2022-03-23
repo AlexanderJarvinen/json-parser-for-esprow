@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main tests main container snapshot 1`] = `
+<div
+  class="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+>
+  <div
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 css-81okm0-MuiPaper-root"
+  >
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-mak2f8-MuiTypography-root"
+    >
+      Total qty : 
+    </p>
+    <h4
+      class="MuiTypography-root MuiTypography-h4 css-5lbw0b-MuiTypography-root"
+    >
+      JSON Parser
+    </h4>
+    <p
+      class="MuiTypography-root MuiTypography-body1 css-mak2f8-MuiTypography-root"
+    >
+      Current element : 1
+    </p>
+  </div>
+  <div
+    class="MuiBox-root css-jb13gg"
+  />
+</div>
+`;

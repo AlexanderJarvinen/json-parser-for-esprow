@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { Entities, Entity } from './types';
-import source from "../utils/test_source.json";
+import source from "../utils/2000rows.json";
 
 export const SetEntities = 'setEntities';
 export const SetEntitiesLength = 'setEntitiesLength';

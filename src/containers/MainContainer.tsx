@@ -95,7 +95,7 @@ const StyledTextField = styled(TextField)(() => ({
 
 
 export const MainContainer: React.FC = () => {
-    const [elem, setElem] = useState<number>(1);
+    let [elem, setElem] = useState<number>(1);
     const [prevElem, setPrevElem] = useState<number>(0);
     const [entites, setEntitesData] = useState<Entities>([]);
     const [activeRadioValue, setActiveRadioValue] = useState<string>('false');
@@ -156,7 +156,7 @@ export const MainContainer: React.FC = () => {
         if(savedPosition > realPosition  && realPosition ===0 && elem > 0) {
 
             if (elem !== 1) {
-                setElem(elem - 1);
+                setElem(--elem);
             }
             if (prevElem === 2) {
                 scrollContainer.current.scrollTo({
@@ -175,7 +175,7 @@ export const MainContainer: React.FC = () => {
         }
 
         if(realPosition > 675 && elem !== entitesLength) {
-            setElem(elem + 1);
+            setElem(++elem);
             scrollContainer.current.scrollTo({
                 top: 650,
                 behavior: 'smooth'

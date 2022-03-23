@@ -1,6 +1,8 @@
 # JSON parser - Test task for Esprow 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In this project loading of the current editable element of a huge array is implemented.
+Also previous element is loading in disabled state expect first element: in this case disabled element is next.
+The navigation is implemented by infinite scrolling to both direction ( scroll up and scroll down ).
 
 ## Available Scripts
 

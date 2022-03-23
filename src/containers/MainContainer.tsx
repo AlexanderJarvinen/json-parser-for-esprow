@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEntities, loadEntitiesLength } from "../redux/actions";
 import { getEntitesData, getEntitesLength } from "../redux/selectors";
 import  {  Stack, Container, Paper, Input, Typography, TextField, Box  }  from "@mui/material";
-import { Entities, Entity } from '../redux/types';
+import { Entities } from '../redux/types';
 import { styled } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import { getKeyByValue } from "../utils/utils";
-// import '../assets/styles.css';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: "#1A2027",
@@ -27,8 +28,8 @@ const StyledStack = styled(Stack)(() => ({
 
 const StyledContainer = styled(Box)(() => ({
     backgroundColor: '#fff',
-    padding: '20px',
-    height: '1250px',
+    padding: '10px',
+    height: '1360px',
     overflowY: 'scroll'
 }));
 
@@ -41,12 +42,9 @@ const DataRow = styled(Paper)(() => ({
     backgroundColor: "#d1d1d1",
     boxShadow: "none",
     paddingLeft: "20px",
+    height: "20px"
 }));
 
-
-const KeyValueDataRow = styled(DataRow)(() => ({
-    height: "40px",
-}));
 
 const DataWrapper = styled(Paper)(() => ({
     border: "1px solid #1A2027",
@@ -66,19 +64,22 @@ const StyledFormControl = styled(FormControl)(() => ({
     width: "100%",
     flexDirection: "row",
     justifyContent: "flex-start",
-    paddingLeft: "20px"
+    paddingLeft: "20px",
+    paddingTop: "10px"
 }));
 
 const StyledRowHeadlineKey = styled(Typography)(() => ({
     paddingRight: "5px",
-    width: "25%",
-    textAlign: "left"
+    width: "22%",
+    textAlign: "left",
+    lineHeight: 1
 }));
 
 const StyledRowHeadlineValue = styled(Typography)(() => ({
     textAlign: "left",
     width: "75%",
-    paddingRight: "20px"
+    paddingRight: "20px",
+    lineHeight: 1
 }));
 
 const SubHeadline = styled(Typography)(() => ({
@@ -102,6 +103,7 @@ export const MainContainer: React.FC = () => {
     const [emailInputValue, setEmailInputValue] = useState<string>("");
     const [addressInputValue, setAddressInputValue] = useState<string>("");
     const [aboutInputValue, setAboutInputValue] = useState<string>("");
+    const [dateRegisteredInputValue, setDateRegisteredInputValue] = useState<any | Date | number | string>(null);
     const [savedPosition, setSavedPosition] = useState<number>(0);
 
     const dispatch = useDispatch();
@@ -129,6 +131,7 @@ export const MainContainer: React.FC = () => {
                 setEmailInputValue(item.email);
                 setAddressInputValue(item.address);
                 setAboutInputValue(item.about);
+                setDateRegisteredInputValue(new Date(item.registered.split(" ")[0]));
             }
         })
     },[entitesState])
@@ -139,6 +142,11 @@ export const MainContainer: React.FC = () => {
     },[elem])
 
 
+    useEffect(() => {
+        console.log(Intl.DateTimeFormat("ru").format(dateRegisteredInputValue) );
+    },[dateRegisteredInputValue])
+
+
     const onScroll = (event: React.UIEvent<HTMLDivElement>) => {
         const scrollContainer: React.RefObject<any> = scroller;
         let realPosition = event.currentTarget.scrollTop;
@@ -146,6 +154,8 @@ export const MainContainer: React.FC = () => {
         setSavedPosition(realPosition);
 
         setPrevElem(elem);
+
+        console.log(realPosition);
 
         if(savedPosition > realPosition  && realPosition ===0 && elem > 0) {
 
@@ -160,7 +170,7 @@ export const MainContainer: React.FC = () => {
 
             } else {
                 scrollContainer.current.scrollTo({
-                    top: 1150,
+                    top: 660,
                     behavior: 'smooth'
                 })
             }
@@ -168,10 +178,10 @@ export const MainContainer: React.FC = () => {
 
         }
 
-        if(realPosition > 1170 && elem !== entitesLength) {
+        if(realPosition > 670 && elem !== entitesLength) {
             setElem(elem + 1);
             scrollContainer.current.scrollTo({
-                top: 800,
+                top: 660,
                 behavior: 'smooth'
             });
             setSavedPosition(0);
@@ -218,12 +228,12 @@ export const MainContainer: React.FC = () => {
                     return (
                         <StyledStack key={item.id} >
                             <Item >
-                                <DataWrapper sx={{ height: '70px'}}>
+                                <DataWrapper sx={{ height: '55px'}}>
                                     <DataRow >
                                         <StyledRowHeadlineKey  variant="body1" >
                                             Active :
                                         </StyledRowHeadlineKey >
-                                        <StyledRowHeadlineValue variant="body1" mb={2}>
+                                        <StyledRowHeadlineValue variant="body1">
                                             {item.isActive.toString()}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
@@ -232,26 +242,27 @@ export const MainContainer: React.FC = () => {
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
                                             name="row-radio-buttons-group"
+                                            sx={{ height: '20px'}}
                                         >
                                             <FormControlLabel value="female" control={<Radio disabled={item.disabled}/>} label="True" />
                                             <FormControlLabel value="male" control={<Radio  disabled={item.disabled}/>} label="False" />
                                         </RadioGroup>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '70px'}}>
-                                    <KeyValueDataRow>
+                                <DataWrapper sx={{ height: '55px'}}>
+                                    <DataRow>
                                         <StyledRowHeadlineKey  variant="body1">
                                             Picture :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
                                             {!item.disabled? pictureInputValue : item.picture}
                                         </StyledRowHeadlineValue>
-                                    </KeyValueDataRow >
+                                    </DataRow >
                                     <StyledFormControl>
-                                        <Input  onChange={handlePictureInputChange} type={"text"} placeholder={"Type picture link here"} disabled={item.disabled}/>
+                                        <Input   onChange={handlePictureInputChange} type={"text"} placeholder={"Type picture link here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '70px'}}>
+                                <DataWrapper sx={{ height: '55px'}}>
                                     <DataRow>
                                         <StyledRowHeadlineKey  variant="body1">
                                             Age :
@@ -261,10 +272,10 @@ export const MainContainer: React.FC = () => {
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input onChange={handleAgeInputChange} type={"number"}  placeholder={"Type age here"} disabled={item.disabled}/>
+                                        <Input  onChange={handleAgeInputChange} type={"number"}  placeholder={"Type age here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '70px'}}>
+                                <DataWrapper sx={{ height: '55px'}}>
                                     <DataRow>
                                         <StyledRowHeadlineKey  variant="body1">
                                             Name :
@@ -274,10 +285,10 @@ export const MainContainer: React.FC = () => {
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input onChange={handleNameInputChange} type={"text"}  placeholder={"Type name here"} disabled={item.disabled}/>
+                                        <Input  onChange={handleNameInputChange} type={"text"}  placeholder={"Type name here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '70px'}}>
+                                <DataWrapper sx={{ height: '55px'}}>
                                     <DataRow>
                                         <StyledRowHeadlineKey  variant="body1">
                                             E-mail :
@@ -287,11 +298,11 @@ export const MainContainer: React.FC = () => {
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input onChange={handleEmailInputChange} type={"email"}  placeholder={"Type e-mail here"} disabled={item.disabled}/>
+                                        <Input  onChange={handleEmailInputChange} type={"email"}  placeholder={"Type e-mail here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '200px'}}>
-                                    <DataRow sx={{ height: '80px', overflowY: 'auto', margin: '20px 10px'}}>
+                                <DataWrapper sx={{ height: '150px'}}>
+                                    <DataRow sx={{ height: '50px', overflowY: 'auto', marginTop: '5px'}}>
                                         <StyledRowHeadlineKey  variant="body1">
                                             Address :
                                         </StyledRowHeadlineKey >
@@ -303,8 +314,8 @@ export const MainContainer: React.FC = () => {
                                         <StyledTextField onChange={handleAddressInputChange} multiline={true}  minRows={2} placeholder={"Type address here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
-                                <DataWrapper sx={{ height: '450px', }}>
-                                    <DataRow sx={{ height: '250px', overflowY: 'auto', margin: '20px 10px'}}>
+                                <DataWrapper >
+                                    <DataRow sx={{ height: '130px', overflowY: 'auto', paddingBottom: "5px"}}>
                                         <StyledRowHeadlineKey  variant="body1">
                                             About :
                                         </StyledRowHeadlineKey >
@@ -316,10 +327,36 @@ export const MainContainer: React.FC = () => {
                                         <StyledTextField
                                             multiline={true}
                                             onChange={handleAboutInputChange}
-                                            minRows={5}
+                                            minRows={3}
                                             placeholder={"Type info here"}
                                             disabled={item.disabled}
                                         />
+                                    </StyledFormControl>
+                                </DataWrapper>
+                                <DataWrapper sx={{ height: '100px'}}>
+                                    <DataRow>
+                                        <StyledRowHeadlineKey  variant="body1">
+                                            Date :
+                                        </StyledRowHeadlineKey >
+                                        <StyledRowHeadlineValue variant="body1" mb={2}>
+                                        {
+                                            !item.disabled?
+                                            Intl.DateTimeFormat("ru").format(dateRegisteredInputValue) :
+                                            Intl.DateTimeFormat("en").format(new Date(item.registered.split(" ")[0]))
+                                        }
+                                        </StyledRowHeadlineValue>
+                                    </DataRow>
+                                    <StyledFormControl>
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker
+                                                value={dateRegisteredInputValue}
+                                                onChange={(newValue) => {
+                                                    setDateRegisteredInputValue(newValue);
+                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
+                                                disabled={item.disabled}
+                                            />
+                                        </LocalizationProvider>
                                     </StyledFormControl>
                                 </DataWrapper>
                             </Item>

@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEntities, loadEntitiesLength } from "../redux/actions";
 import { getEntitesData, getEntitesLength } from "../redux/selectors";
 import  {  Stack, Container, Paper, Input, Typography, TextField, Box  }  from "@mui/material";
-import { Entities } from '../redux/types';
+import { Entities, Entity } from '../redux/types';
 import { styled } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import '../assets/styles.css';
+import { getKeyByValue } from "../utils/utils";
+// import '../assets/styles.css';
 
 const Item = styled(Paper)(() => ({
     backgroundColor: "#1A2027",
@@ -40,6 +41,11 @@ const DataRow = styled(Paper)(() => ({
     backgroundColor: "#d1d1d1",
     boxShadow: "none",
     paddingLeft: "20px",
+}));
+
+
+const KeyValueDataRow = styled(DataRow)(() => ({
+    height: "40px",
 }));
 
 const DataWrapper = styled(Paper)(() => ({
@@ -90,6 +96,12 @@ export const MainContainer: React.FC = () => {
     const [elem, setElem] = useState<number>(1);
     const [prevElem, setPrevElem] = useState<number>(0);
     const [entites, setEntitesData] = useState<Entities>([]);
+    const [pictureInputValue, setPictureInputValue] = useState<string>("");
+    const [ageInputValue, setAgeInputValue] = useState<number>(0);
+    const [nameInputValue, setNameInputValue] = useState<string>("");
+    const [emailInputValue, setEmailInputValue] = useState<string>("");
+    const [addressInputValue, setAddressInputValue] = useState<string>("");
+    const [aboutInputValue, setAboutInputValue] = useState<string>("");
     const [savedPosition, setSavedPosition] = useState<number>(0);
 
     const dispatch = useDispatch();
@@ -98,7 +110,6 @@ export const MainContainer: React.FC = () => {
 
     const entitesState = useSelector(getEntitesData);
     const entitesLength = useSelector(getEntitesLength);
-
     const scroller = React.createRef();
 
 
@@ -110,23 +121,33 @@ export const MainContainer: React.FC = () => {
 
     useEffect(() => {
         setEntitesData(entitesState);
-        console.log(entitesState);
+        entitesState.forEach((item) => {
+            if (!item.disabled) {
+                setPictureInputValue(item.picture);
+                setAgeInputValue(item.age);
+                setNameInputValue(item.name);
+                setEmailInputValue(item.email);
+                setAddressInputValue(item.address);
+                setAboutInputValue(item.about);
+            }
+        })
     },[entitesState])
+
 
     useEffect(() => {
         dispatch(setEntities(elem));
     },[elem])
 
+
     const onScroll = (event: React.UIEvent<HTMLDivElement>) => {
         const scrollContainer: React.RefObject<any> = scroller;
         let realPosition = event.currentTarget.scrollTop;
-        
+
         setSavedPosition(realPosition);
 
         setPrevElem(elem);
 
         if(savedPosition > realPosition  && realPosition ===0 && elem > 0) {
-
 
             if (elem !== 1) {
                 setElem(elem - 1);
@@ -150,13 +171,39 @@ export const MainContainer: React.FC = () => {
         if(realPosition > 1170 && elem !== entitesLength) {
             setElem(elem + 1);
             scrollContainer.current.scrollTo({
-                top: 1050,
+                top: 800,
                 behavior: 'smooth'
             });
             setSavedPosition(0);
         }
 
 
+    }
+
+
+    const handlePictureInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setPictureInputValue(event.target.value);
+    }
+
+
+    const handleAgeInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setAgeInputValue(Number(event.target.value));
+    }
+
+    const handleNameInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setNameInputValue(event.target.value);
+    }
+
+    const handleEmailInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setEmailInputValue(event.target.value);
+    }
+
+    const handleAddressInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setAddressInputValue(event.target.value);
+    }
+
+    const handleAboutInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        setAboutInputValue(event.target.value);
     }
 
     return (<>
@@ -192,16 +239,16 @@ export const MainContainer: React.FC = () => {
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '70px'}}>
-                                    <DataRow>
+                                    <KeyValueDataRow>
                                         <StyledRowHeadlineKey  variant="body1">
                                             Picture :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.picture}
+                                            {!item.disabled? pictureInputValue : item.picture}
                                         </StyledRowHeadlineValue>
-                                    </DataRow>
+                                    </KeyValueDataRow >
                                     <StyledFormControl>
-                                        <Input type={"text"} placeholder={"Type picture link here"} disabled={item.disabled}/>
+                                        <Input  onChange={handlePictureInputChange} type={"text"} placeholder={"Type picture link here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '70px'}}>
@@ -210,11 +257,11 @@ export const MainContainer: React.FC = () => {
                                             Age :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.age}
+                                            {!item.disabled? ageInputValue : item.age}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input type={"number"}  placeholder={"Type age here"} disabled={item.disabled}/>
+                                        <Input onChange={handleAgeInputChange} type={"number"}  placeholder={"Type age here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '70px'}}>
@@ -223,11 +270,11 @@ export const MainContainer: React.FC = () => {
                                             Name :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.name}
+                                            {!item.disabled? nameInputValue : item.name}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input type={"text"}  placeholder={"Type name here"} disabled={item.disabled}/>
+                                        <Input onChange={handleNameInputChange} type={"text"}  placeholder={"Type name here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '70px'}}>
@@ -236,11 +283,11 @@ export const MainContainer: React.FC = () => {
                                             E-mail :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.email}
+                                            {!item.disabled? emailInputValue : item.email}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <Input type={"email"}  placeholder={"Type e-mail here"} disabled={item.disabled}/>
+                                        <Input onChange={handleEmailInputChange} type={"email"}  placeholder={"Type e-mail here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '200px'}}>
@@ -249,11 +296,11 @@ export const MainContainer: React.FC = () => {
                                             Address :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.address}
+                                            {!item.disabled? addressInputValue : item.address}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
-                                        <StyledTextField multiline={true}  minRows={2} placeholder={"Type address here"} disabled={item.disabled}/>
+                                        <StyledTextField onChange={handleAddressInputChange} multiline={true}  minRows={2} placeholder={"Type address here"} disabled={item.disabled}/>
                                     </StyledFormControl>
                                 </DataWrapper>
                                 <DataWrapper sx={{ height: '450px', }}>
@@ -262,12 +309,13 @@ export const MainContainer: React.FC = () => {
                                             About :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1" mb={2}>
-                                            {item.about}
+                                            {!item.disabled? aboutInputValue : item.about}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
                                         <StyledTextField
                                             multiline={true}
+                                            onChange={handleAboutInputChange}
                                             minRows={5}
                                             placeholder={"Type info here"}
                                             disabled={item.disabled}

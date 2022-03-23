@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEntities, loadEntitiesLength } from "../redux/actions";
 import { getEntitesData, getEntitesLength } from "../redux/selectors";
-import  {  Stack, Container, Paper, Input, Typography, TextField, Box  }  from "@mui/material";
+import  {  Stack, Container, Paper, Input, Typography, TextField, Box, FormLabel  }  from "@mui/material";
 import { Entities } from '../redux/types';
 import { styled } from '@mui/material/styles';
 import Radio from '@mui/material/Radio';
@@ -28,7 +28,7 @@ const StyledStack = styled(Stack)(() => ({
 
 const StyledContainer = styled(Box)(() => ({
     backgroundColor: '#fff',
-    padding: '10px',
+    padding: '20px 10px',
     height: '1360px',
     overflowY: 'scroll'
 }));
@@ -58,6 +58,7 @@ const DataHeader = styled(Paper)(() => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    height: "50px"
 }));
 
 const StyledFormControl = styled(FormControl)(() => ({
@@ -97,6 +98,7 @@ export const MainContainer: React.FC = () => {
     const [elem, setElem] = useState<number>(1);
     const [prevElem, setPrevElem] = useState<number>(0);
     const [entites, setEntitesData] = useState<Entities>([]);
+    const [activeRadioValue, setActiveRadioValue] = useState<string>('false');
     const [pictureInputValue, setPictureInputValue] = useState<string>("");
     const [ageInputValue, setAgeInputValue] = useState<number>(0);
     const [nameInputValue, setNameInputValue] = useState<string>("");
@@ -125,6 +127,7 @@ export const MainContainer: React.FC = () => {
         setEntitesData(entitesState);
         entitesState.forEach((item) => {
             if (!item.disabled) {
+                setActiveRadioValue(item.isActive.toString());
                 setPictureInputValue(item.picture);
                 setAgeInputValue(item.age);
                 setNameInputValue(item.name);
@@ -190,6 +193,10 @@ export const MainContainer: React.FC = () => {
 
     }
 
+    const handleActiveRadioChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
+        console.log(event.target.value);
+        setActiveRadioValue(event.target.value);
+    }
 
     const handlePictureInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>):void  => {
         setPictureInputValue(event.target.value);
@@ -234,18 +241,20 @@ export const MainContainer: React.FC = () => {
                                             Active :
                                         </StyledRowHeadlineKey >
                                         <StyledRowHeadlineValue variant="body1">
-                                            {item.isActive.toString()}
+                                            {!item.disabled? activeRadioValue? String(activeRadioValue): "" : String(item.isActive)}
                                         </StyledRowHeadlineValue>
                                     </DataRow>
                                     <StyledFormControl>
                                         <RadioGroup
                                             row
-                                            aria-labelledby="demo-row-radio-buttons-group-label"
-                                            name="row-radio-buttons-group"
+                                            // aria-labelledby="demo-controlled-radio-buttons-group"
+                                            // name="row-radio-buttons-group"
                                             sx={{ height: '20px'}}
+                                            value={activeRadioValue}
+                                            onChange={handleActiveRadioChange}
                                         >
-                                            <FormControlLabel value="female" control={<Radio disabled={item.disabled}/>} label="True" />
-                                            <FormControlLabel value="male" control={<Radio  disabled={item.disabled}/>} label="False" />
+                                            <FormControlLabel value="true" control={<Radio disabled={item.disabled}/>} label="True" />
+                                            <FormControlLabel value="false" control={<Radio  disabled={item.disabled}/>} label="False" />
                                         </RadioGroup>
                                     </StyledFormControl>
                                 </DataWrapper>
